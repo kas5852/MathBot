@@ -8,6 +8,7 @@ def problemSolver():
         algebraSolver(inputString)
     else: 
         quadraticSolver(inputString)
+        
 
 def algebraSolver(inputString):
     digitFlag = False
