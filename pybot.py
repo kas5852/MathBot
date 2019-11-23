@@ -4,16 +4,13 @@ from chatterbot.trainers import ChatterBotCorpusTrainer
 import string
 
 def problemSolver():
-    inputString = input("What kind of word problem would you like me to solve? You can say 'Quadratic' or 'algebra'. ")
-    if not inputString:
-        algebraSolver()
-    else: 
-        quadraticSolver()
+    inputString = input("What's your word problem? I can do basic algebra such as \n 'If John has 2 apples and Jack has 2 apples, what is the product of apples?' ")
+    algebraSolver(inputString)
         
 
-def algebraSolver():
-    # inputString = input("What's your algebra problem? ")
-    inputString = "John has 3 apples and Jake has 4 apples. What is the difference of their apples?"
+def algebraSolver(inputString):
+    #inputString = input("What's your algebra problem? ")
+    #inputString = "John has 3 apples and Jake has 4 apples. Joseph has 5 oranges and Jeff has 7 oranges. How many apples are there in total? How many oranges are there?"
     digitFlag = False
     variable = {}
     listOfDigits = []
@@ -47,7 +44,11 @@ def algebraSolver():
             subtractList = variable[key]
             result = abs(subtractList[0]-subtractList[1])
             print("The difference of the " + str(key) + " is " + str(result) + '\n')
-
+    else: 
+        for key in variable:
+            addList = variable[key]
+            result = abs(addList[0]+addList[1])
+            print("The total number of " + str(key) + " is " + str(result) + '\n')
         
 
 
@@ -111,33 +112,29 @@ def trainBot():
     
     math_talk_6 = ['Tan Identity'
                 'tan(a +/- b) = (tan(a) +/- tan(b))/(1 -/+ tan(a) * tan(b))']
-
-    # math_talk_function = ['Solve a problem for me!', problemSolver()]
-    # math_talk_function2 = ["I'd like you to solve a problem for me", problemSolver()]
-    # math_talk_function3 = ["Can you solve a word problem?", problemSolver()]
                 
-    # talks.extend((small_talk, math_talk_1, math_talk_2, math_talk_3, 
-    #     math_talk_4, math_talk_5, math_talk_6, math_talk_10, math_talk_11, 
-    #     farewell_talk))
+    talks.extend((small_talk, math_talk_1, math_talk_2, math_talk_3, 
+        math_talk_4, math_talk_5, math_talk_6, math_talk_10, math_talk_11, 
+        farewell_talk))
     
-    # corpus_trainer = ChatterBotCorpusTrainer(my_bot)
-    # corpus_trainer.train('chatterbot.corpus.english')
+    corpus_trainer = ChatterBotCorpusTrainer(my_bot)
+    corpus_trainer.train('chatterbot.corpus.english')
     
-    # list_trainer = ListTrainer(my_bot)
-    # for item in talks:
-    #     list_trainer.train(item)
+    list_trainer = ListTrainer(my_bot)
+    for item in talks:
+        list_trainer.train(item)
     return my_bot 
 
 
 if __name__ == "__main__":
     my_bot = trainBot()
-    inputString = input("Hi I'm MathBot! Ask me a math question. I can do basic arithemtic and solve word problems if you include 'word problem' in your query!")
+    inputString = input("Hi I'm MathBot! Ask me a math question. I can do basic arithemtic and solve word problems if you include 'word problem' in your query! ")
     while inputString != "exit":
-        # if "word problem" in inputString:
-        problemSolver()
-        # else:
-        #     print(my_bot.get_response(inputString))
-        #     inputString = input("What else would you like me to do?")
+        if "word problem" in inputString:
+            problemSolver()
+        else:
+            print(my_bot.get_response(inputString))
+            inputString = input("What else would you like me to do?")
 
     print("I had a great time! Run me again for some more dope math.")
         
